@@ -1,0 +1,30 @@
+import numpy as np
+import pandas as pd
+import matplotlib as plt
+
+file_path = r"C:\Program Files\final\kindle_data-v2-csv.csv"
+
+# Try reading the CSV file with different encodings
+encodings = ['utf-8', 'latin1', 'iso-8859-1', 'cp1252']
+for encoding in encodings:
+    try:
+        df = pd.read_csv(file_path, encoding=encoding)
+        print(f"Successfully read the file with {encoding} encoding.")
+        break
+    except UnicodeDecodeError as e:
+        print(f"Error reading the file with {encoding} encoding: {e}")
+
+# Print the column names to verify their presence
+print("Column names in the DataFrame:")
+print(df.columns)
+
+# Define the columns to be selected
+selected_columns = ['ID', 'title', 'author', 'soldBy', 'stars',
+                    'reviews', 'price', 'isKindleUnlimited', 'category_id', 'isBestSeller',
+                    'isEditorsPick', 'isGoodReadsChoice', 'publishedDate', 'category_name']
+
+# Select the specified columns from the dataframe
+df_selected = df[selected_columns]
+
+# Display basic information about the dataset
+print(df_selected.info())
